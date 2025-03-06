@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/css/questioning.css'%}">
+    <title>Build Your Companion</title>
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bangers&family=Bungee&family=Carter+One&family=Crete+Round:ital@0;1&family=Geo:ital@0;1&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@1,402&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+    <div class="content-question">
+        <div id="question-container">
+            <div id="question"></div>
+            <input type="text" id="answer" >
+            <button  class="next"onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div class="dialog">
+            <div class="greeting">"Hello, Innovative Thinkers!"</div>
+            <div class="content">Join us to find the perfect match for your <span>investment</span> needs.</div>
+            <button onclick="hide_element()">Start</button>
+        </div>
+        <div class="intro">
+            <div class="title" id="intro-title">Let's Introduce Yourself.</div>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            "Please provide your full name",
+            "Could you describe your business idea in detail?(eg: Technology,Medical)",
+            "How much investment do you require to complete the development of your startup(in $)?",
+            "What are the primary risks that could affect the success of your project?",
+            "Which technology stack or tools are you utilizing in the development of your startup?"
+        ];
+
+        let currentQuestionIndex = 0;
+        const answers = [];
+
+        function typeQuestion(text, index = 0) {
+            const questionElement = document.getElementById('question');
+            questionElement.innerText = text.substring(0, index + 1);
+            if (index < text.length - 1) {
+                setTimeout(() => typeQuestion(text, index + 1), 50);
+            }
+        }
+
+        function hide_element() {
+            const element1 = document.getElementsByClassName('greeting')[0];
+            const element2 = document.getElementsByClassName('content')[0];
+            const image = document.querySelector('.content-question img');  
+            const button = document.querySelector('.dialog button');
+            const border = document.querySelector('.content-question');
+            const title = document.querySelector('#intro-title');
+
+            if (element1) element1.style.display = 'none';
+            if (element2) element2.style.display = 'none';
+
+            if (image) {
+                image.style.animation = 'fadeSlideLeft 1.5s ease forwards';
+            }
+            if (button) {
+                button.style.display = 'none';
+                border.style.border = 'none';
+                title.style.display = 'inline';
+            }
+            
+            document.getElementById('question-container').style.display = 'block';
+            typeQuestion(questions[currentQuestionIndex]);
+        }
+        function nextQuestion() {
+    const answerInput = document.getElementById('answer');
+    const nextButton = document.querySelector('.next');
+    const answer = answerInput.value.trim();
+
+    if (answer === "") {
+        alert("Please provide an answer.");
+        return;
+    }
+
+    if (currentQuestionIndex < questions.length - 1) {
+        answers.push(answer);  
+        answerInput.value = ""; 
+        currentQuestionIndex++;
+        typeQuestion(questions[currentQuestionIndex]); 
+    } else {
+        answers.push(answer);  
+        nextButton.disabled = true; 
+        nextButton.style.position = 'relative';
+        nextButton.style.left = '30px'; 
+
+
+        const generateButton = document.createElement('button');
+        generateButton.innerText = "Startup Card";
+        generateButton.className = "generate-card";
+        generateButton.onclick = generateCard;
+
+    
+        nextButton.parentElement.appendChild(generateButton);
+        answerInput.disabled = true;
+    }
+}
+
+
+
+function generateCard() {
+    const investorData = {
+        name: answers[0],
+        businessIdea: answers[1],
+        investmentRequired: answers[2],
+        risks: answers[3],
+        technologyStack: answers[4]
+    };
+    
+    console.log('Data to store:', investorData);  
+    localStorage.setItem('investorData', JSON.stringify(investorData));  
+    window.location.href = "{% url 'startupcard' %}"; 
+}
+
+
+    </script>
+</body>
+</html>

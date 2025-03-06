@@ -1,0 +1,91 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Your Companion</title>
+  <link rel="stylesheet" href="{% static 'app/css/investoroption.css'%}">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bangers&family=Bungee&family=Carter+One&family=Crete+Round:ital@0;1&family=Geo:ital@0;1&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@1,402&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <section class="team-section">
+    <h1 class="meet">SELECT ONE INVESTER</h1>
+    <div class="team-container">
+      <div class="team-card">
+        <div class="card-header">
+          <img src="{% static 'app/images/male1avatar.png'%}" alt="Jane Smith">
+        </div>
+        <h2 >Jane Smith</h2>
+        <div class="detail1">
+          <p><strong> Focus/Interest </strong>:<span>Real estate</span></p>
+          <p><strong> Risk </strong>:<span>Moderate</span></p>
+          <p><strong> Investment Size </strong>:<span>$100,100-$500,000</span></p>
+         
+          <p><strong> Successful Investments</strong>:<span>10 </span></p>
+          
+
+            indicating a high level of experience 
+            and investment success
+          
+        </div>
+        
+        <button class="buttons" onclick="selectInvestor('Jane Smith')">Select Investor</button>
+     
+      </div>
+      
+      <div class="team-card">
+        <div class="card-header">
+          <img src="{% static 'app/images/male2avatar.png'%}" alt="Jane Smith">
+        </div>
+        <h2 >Michael Brown</h2>
+        <div class="detail2">
+          <p><strong> Focus/Interest </strong>:<span>Real estate</span></p>
+          <p><strong> Risk </strong>:<span>Moderate</span></p>
+          <p><strong> Investment Size </strong>:<span>$100,100-$500,000</span></p>
+        
+          <p><strong> Successful Investments</strong>:<span>10 </span></p>
+   
+
+             indicating a moderate level of experience 
+             and investment success
+            
+        </div>
+        
+        
+        <button class="buttons" onclick="selectInvestor('Michael Brown')">Select Investor</button>
+
+
+      </div>
+
+      <div class="team-card">
+        <div class="card-header">
+          <img src="{% static 'app/images/femaleavatar.webp'%}" alt="Jane Smith">        </div>
+        <h2 >Helen Doe</h2>
+        <div class="detail3">
+          <p><strong> Focus/Interest </strong>:<span>Real estate</span></p>
+          <p><strong> Risk </strong>:<span>Moderate</span></p>
+          <p><strong> Investment Size </strong>:<span>$100,100-$500,000</span></p>
+        
+          <p><strong> Successful Investments</strong>:<span>10 </span></p>
+    
+            indicating a low level of experience and investment success
+        </div>
+       
+        <button class="buttons" onclick="selectInvestor('Helen Doe')">Select Investor</button>
+
+
+      </div>
+    </div>
+  </section>
+  <script >function selectInvestor(name) {
+
+    localStorage.setItem("selectedInvestor", name);
+    window.location.href = "{% url 'introquiz' %}";
+}</script>
+</body>
+</html>

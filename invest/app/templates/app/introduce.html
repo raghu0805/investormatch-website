@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Companion</title>
+    <link rel="stylesheet" href="{% static 'app/css/introduce.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bangers&family=Bungee&family=Carter+One&family=Crete+Round:ital@0;1&family=Geo:ital@0;1&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@1,402&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1><span class="typing-mask">Choose your role to proceed</span></h1>
+        </div>
+        <div class="card-container">
+            <div class="card" id="card1">
+                <img src="{% static 'app/images/investor-image.png' %}" alt="investor-image">
+                <h2 class="card-title">Investor</h2>
+                <div class="decorative-line"></div>
+                <p class="card-description">Discover startups that match your vision, values, and investment goals.</p>
+                <button class="buttons" data-role="investor">I'm an investor</button>
+            </div>
+            <div class="card" id="card2">
+                <img class="imag" src="{% static 'app/images/ideaman.png' %}" alt="Startup-image">
+                <h2 class="card-title">Startup</h2>
+                <div class="decorative-line"></div>
+                <p class="card-description">Securing strategic investors to drive business welfare and growth.</p>
+                <button class="buttons" data-role="startup">I'm a Startup</button>
+            </div>
+        </div>
+        <button class="start" id="continueButton">Continue</button>
+    </div>
+    
+    <script>
+        const buttons = document.querySelectorAll('.buttons');
+        const cards = document.querySelectorAll('.card');
+        let selectedRole = "";
+        
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                selectedRole = button.getAttribute('data-role');
+                
+                cards.forEach(card => card.style.backgroundColor = "");
+                cards[index].style.backgroundColor = "red";
+            });
+        });
+        
+        document.getElementById('continueButton').addEventListener('click', () => {
+            if (selectedRole === "investor") {
+                window.location.href = "{% url 'kuttyintro' %}";
+            } else if (selectedRole === "startup") {
+                window.location.href= "{% url 'questioning'  %}"
+            } else {
+                alert("Please select a role before proceeding.");
+            }
+        });
+    </script>
+</body>
+</html>

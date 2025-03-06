@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/css/startupcard.css' %}">
+    <title>Build Your Companion</title>
+
+     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bangers&family=Bungee&family=Carter+One&family=Crete+Round:ital@0;1&family=Geo:ital@0;1&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@1,402&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="card-container">
+        <h1>Startup Card</h1>
+        <img class="avatar" src="{% static 'app/images/startup-avatar.png' %}" alt="Startup Avatar">
+        <div id="card">
+
+        </div>
+        <button class="buttons" id="continueButton">Continue</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const data = localStorage.getItem('investorData');
+            const cardElement = document.getElementById('card');
+            if (data) {
+                const parsedData = JSON.parse(data);
+                cardElement.innerHTML = `
+                    <p><strong>NAME</strong>: <span>${parsedData.name}</span></p>
+                    <p><strong>BUSINESS IDEA</strong>: <span>${parsedData.businessIdea}</span></p>
+                    <p><strong>INVESTMENT REQUIRED</strong>: <span>${parsedData.investmentRequired}</span></p>
+                    <p><strong>TECHNOLOGY STACK</strong>: <span>${parsedData.technologyStack}</span></p>
+                `;
+            } else {
+                cardElement.innerText = "No data found.";
+            }
+
+            document.getElementById('continueButton').addEventListener('click', () => {
+                window.location.href = "{% url 'loading' %}";
+            });
+        });
+    </script>
+</body>
+</html>

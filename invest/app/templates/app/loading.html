@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bangers&family=Bungee&family=Carter+One&family=Crete+Round:ital@0;1&family=Geo:ital@0;1&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@1,402&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #000000, #434343);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  height: 100vh;
+  margin: 0;     
+  font-family: "Jaro", serif;
+        }
+        .loading-container {
+            text-align: center;
+        }
+        .content {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .loading {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+        }
+        .loading div {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 -0.4rem rgba(60, 0, 80, 0.1) inset;
+            animation: cycle 1s ease-in-out infinite;
+        }
+        .loading div:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .loading div:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loading div:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes cycle {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(1rem);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 600px) {
+            .content {
+                font-size: 2rem;
+            }
+            .loading div {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        @media (max-width: 480px) {
+            .content {
+                font-size: 1.8rem;
+            }
+            .loading div {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="content">Searching for Investors...</div>
+        <div class="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            window.location.href = "{% url 'investoroption' %}";
+        }, 10000);
+    </script>
+</body>
+</html>

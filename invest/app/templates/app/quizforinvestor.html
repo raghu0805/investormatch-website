@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Companion</title>
+    <link rel="stylesheet" href="{% static 'app/css/quiz.css' %}">
+
+     
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Bangers&family=Bungee&family=Carter+One&family=Crete+Round:ital@0;1&family=Geo:ital@0;1&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Monoton&family=Montserrat:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@1,402&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="quiz-container">
+        {% if question == "Quiz completed! Thank you for participating." %}
+            <h1>{{ question }}</h1>
+        {% else %}
+            <h1>{{ question }}</h1>
+            <form id="quizForm" method="POST">
+                {% csrf_token %}
+                <div class="options">
+                    {% for option in options %}
+                        <label for="option-{{ forloop.counter }}">
+                            <input 
+                                type="radio" 
+                                name="answer" 
+                                id="option-{{ forloop.counter }}" 
+                                value="{{ option }}" 
+                                required>
+                            {{ option }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+                <button type="submit" id="submitButton" onclick="submitQuiz()">Submit</button>
+
+          
+            </form>
+
+            {% if suggestion %}
+            <div id="suggestionBox" class="suggestion">
+                <h3>Suggestion:</h3>
+                <p id="suggestionText">{{ suggestion }}</p>
+            </div>
+            {% else %}
+            <div id="suggestionBox" class="suggestion hidden"></div>
+            {% endif %}
+            {% if show_next_button %}
+            <a href="{% url 'quizforinvestor' question_id|add:1 %}" id="nextQuestionButton">Next Question</a>
+            <p>Current Question ID: {{ question_id }}</p>
+
+            {% endif %}
+        {% endif %}
+    </div>
+    <div id="coinAnimationContainer"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("quizForm");
+    const suggestionBox = document.getElementById("suggestionBox");
+    const suggestionText = document.getElementById("suggestionText");
+    const submitButton = document.getElementById("submitButton");
+    const coinContainer = document.getElementById("coinAnimationContainer");
+    const nextQuestionButton = document.getElementById("nextQuestionButton");
+
+    
+    addBackButton();
+
+   
+    form?.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+      
+        if (!validateForm()) {
+            alert("Please answer all  before submitting!");
+            return;
+        }
+
+
+        showCoinAnimation();
+
+      
+        setTimeout(() => {
+            suggestionText.textContent = "Great choice! Keep it up!";
+            suggestionBox.classList.remove("hidden");
+            submitButton.disabled = true;
+        }, 1500);
+    });
+
+   
+    function validateForm() {
+    const selectedOption = document.querySelector('input[name="answer"]:checked');
+    return !!selectedOption; 
+}
+
+
+
+    function showCoinAnimation() {
+        const coinCount = 20; 
+        for (let i = 0; i < coinCount; i++) {
+            const coin = document.createElement("div");
+            coin.classList.add("coin");
+            coin.style.left = `${Math.random() * (coinContainer.clientWidth || window.innerWidth)}px`;
+coin.style.animationDelay = `${Math.random() * 0.5}s`;
+
+            coinContainer.appendChild(coin);
+
+           
+            coin.addEventListener("animationend", () => {
+                coin.remove();
+            });
+        }
+    }
+
+   
+    if (nextQuestionButton) {
+        nextQuestionButton.addEventListener("click", function () {
+
+            window.location.href = nextQuestionButton.getAttribute("href");
+        });
+    }
+
+
+    function showLoadingSpinner() {
+        const loadingSpinner = document.createElement("div");
+        loadingSpinner.id = "loadingSpinner";
+        loadingSpinner.textContent = "Loading...";
+        document.body.appendChild(loadingSpinner);
+
+        setTimeout(() => {
+            loadingSpinner.remove();
+        }, 2000);
+    }
+
+   
+    function addBackButton() {
+        const backButton = document.createElement("a");
+        backButton.id = "backButton";
+        backButton.textContent = "← Back";
+        backButton.href = "javascript:history.back()";
+        backButton.style.position = "absolute";
+        backButton.style.top = "10px";
+        backButton.style.left = "10px";
+        backButton.style.background = "linear-gradient(135deg, #ff7e5f, #feb47b)";
+        backButton.style.color = "white";
+        backButton.style.textDecoration = "none";
+        backButton.style.padding = "10px 20px";
+        backButton.style.borderRadius = "5px";
+        backButton.style.fontSize = "1rem";
+        backButton.style.fontWeight = "bold";
+        backButton.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+        backButton.style.transition = "background 0.3s ease, transform 0.3s ease";
+
+        backButton.addEventListener("mouseover", function () {
+            backButton.style.background = "linear-gradient(135deg, #feb47b, #ff7e5f)";
+            backButton.style.transform = "translateY(-2px)";
+            backButton.style.boxShadow = "0 6px 8px rgba(0, 0, 0, 0.2)";
+        });
+
+        backButton.addEventListener("mouseout", function () {
+            backButton.style.background = "linear-gradient(135deg, #ff7e5f, #feb47b)";
+            backButton.style.transform = "translateY(0)";
+            backButton.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+        });
+
+        document.body.appendChild(backButton);
+    }
+});
+function submitQuiz() {
+    var form = document.getElementById("quizForm");
+    var selectedOption = document.querySelector('input[name="answer"]:checked');
+
+    if (!selectedOption) {
+        alert("Please select an answer before submitting!");
+        return;
+    }
+
+    form.submit();
+}
+
+
+    </script>
+</body>
+</html>

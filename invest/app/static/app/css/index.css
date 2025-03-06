@@ -1,0 +1,177 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+  color:white;
+  overflow:none;
+  font-family: "Jaro", serif;
+
+}
+
+body {
+  background: linear-gradient(to bottom, #000000, #434343);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  height: 100vh;
+  margin: 0;     
+}
+
+
+.invest{
+  color:rgb(208, 16, 16);
+  font-family: "Jaro", serif;
+  font-size:15rem;
+  font-weight: 400;
+  font-style: normal;
+  text-align:center;
+  margin-top:-90px;
+  margin-left:-150PX;
+
+  opacity: 0; 
+  transform: translateX(100px); /* Start from right */
+  animation: slideLeft 1s ease-out forwards;
+}
+.matching{
+  color:rgb(208, 16, 16);
+  font-family: "Jaro", serif;
+  font-size:28rem;
+  font-weight: 400;
+  font-style: normal;
+  text-align:center;
+  margin-left:-310PX;
+  margin-top:-130px;
+
+  opacity: 0; 
+  transform: translateX(-100px); /* Start from left */
+  animation: slideRight 1s ease-out forwards;
+}
+.circle{
+
+  height:500px;
+  width:500px;
+  font-size:30px;
+  position:relative;
+  top:50px;
+
+}
+.circle-image{
+  position:absolute;
+  top:30%;
+  opacity: 0; 
+  transform: translateY(50px); 
+  animation: slideUp 1s ease-out forwards; 
+ 
+}
+.title{
+  display:flex;
+  justify-content: center;
+}
+button{
+  background-color:rgb(208, 16, 16);
+  height:8%;
+  width:10%;
+  border-radius: 10%;
+  border:none;
+
+}
+.start{
+  font-family: "Jaro", serif;
+  position:relative;
+  left:45%;
+  top:15%;
+  font-size:1.2rem;
+  transition: 0.3s ease-in-out;
+   cursor: pointer;
+/* Apply animation */
+box-shadow: 0 0 15px rgba(38, 36, 38, 0.8), 
+                0 0 30px rgba(33, 31, 33, 0.6), 
+                0 0 45px rgba(10, 9, 10, 0.4);
+}
+
+
+
+.start:hover{
+  background-color:red;
+
+  box-shadow: 0 0 20px rgb(10, 9, 10), 
+  0 0 40px rgba(18, 17, 18, 0.8), 
+  0 0 60px rgba(11, 11, 11, 0.6);
+  text-shadow: 2px 2px 5px rgb(0, 0, 0), 2px 2px 5px rgb(0, 0, 0), 2px 2px 5px rgb(0, 0, 0), 2px 2px 5px rgb(0, 0, 0);
+}
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* Overlay effect */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Black with 50% opacity */
+  display: none; /* Hidden initially */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Cards inside the overlay */
+.card-container {
+  display: flex;
+  gap: 200px;
+}
+
+.login,.signup {
+  background:rgb(208, 16, 16);
+  color: rgb(255, 255, 255);
+  width:150px;
+  height:10%;
+
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup:hover ,.login:hover,.start:hover{
+  background: red;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgb(10, 9, 10), 
+  0 0 40px rgba(18, 17, 18, 0.8), 
+  0 0 60px rgba(11, 11, 11, 0.6);
+  text-shadow: 2px 2px 5px rgb(0, 0, 0), 2px 2px 5px rgb(0, 0, 0), 2px 2px 5px rgb(0, 0, 0), 2px 2px 5px rgb(0, 0, 0);
+}

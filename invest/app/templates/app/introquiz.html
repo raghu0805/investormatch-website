@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Companion</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
+
+    <style>
+        /* Background Styling */
+        body {
+            background: linear-gradient(to bottom, #000000, #434343);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Typing Effect */
+        .content {
+            padding: 20px;
+            max-width: 80%;
+        }
+
+        h2 {
+            font-family: "Jaro", serif;
+            color: rgb(253, 251, 251);
+            font-size: 40px;
+            letter-spacing: 2px;
+            margin: 0;
+            white-space: pre-line; 
+            overflow: hidden;
+        }
+
+        .typing-container {
+            display: inline-block;
+            white-space: pre-wrap; 
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h2>
+            <span class="typing-container" id="typing-text"></span>
+        </h2>
+    </div>
+
+    <script>
+        const text = `Find your perfect startup match in the IT industry!\nTake the upcoming quiz and discover innovative opportunities\nthat align with your growth and ambitions.\nYour journey to success starts now!`;
+
+        let index = 0;
+        const speed = 50; 
+        const typingText = document.getElementById("typing-text");
+
+        function typeEffect() {
+            if (index < text.length) {
+                typingText.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeEffect, speed);
+            }
+        }
+
+        typeEffect(); 
+        setTimeout(() => {
+            window.location.href = "{% url 'quiz' question_id=1 %}";
+        }, 14000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Companion</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1A0048, #2E005C);
+        }
+
+        /* Animated Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png'), linear-gradient(135deg, #1A0048, #2E005C);
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
+            animation: spin 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .leaderboard {
+            width: 90%;
+            max-width: 900px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .leaderboard-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(90deg, #FFD700, #FF8C00);
+            color: #4B0082;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .leaderboard-header h1 {
+            font-size: 32px;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .leaderboard-header p {
+            font-size: 16px;
+            margin: 10px 0 0;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .leaderboard-header::after {
+            content: '🏆';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            font-size: 48px;
+            transform: translateY(-50%);
+        }
+
+        .leaderboard-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .rank {
+            font-size: 28px;
+            font-weight: bold;
+            margin-right: 20px;
+            color: #FFD700;
+            text-align: center;
+            width: 50px;
+            position: relative;
+        }
+
+        .rank::after {
+            content: '★';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: #FFD700;
+        }
+
+        .rank.top-1 {
+            color: #FFD700; /* Gold */
+        }
+
+        .rank.top-2 {
+            color: #C0C0C0; /* Silver */
+        }
+
+        .rank.top-3 {
+            color: #CD7F32; /* Bronze */
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            margin-right: 15px;
+        }
+
+        .profile h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #FFD700;
+        }
+
+        .profile p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .profile-badge {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFD700;
+            margin-left: auto;
+        }
+
+        .investment-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .animation {
+            animation: pulse 2s infinite;
+        }
+
+    
+
+        
+        button{
+            background-color: #ff3300;
+            border-radius:8px;
+            border:none;
+            height:40px;
+            width:130px;
+            margin:6px 20px;
+        }
+        .accept{
+            background-color:#FF8C00;
+            color:white;
+        }
+        a{
+            text-decoration:none;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="leaderboard">
+        <div class="leaderboard-header">
+            <h1>Investor Leaderboard</h1>
+            <p>Level up your investments and claim your spot!</p>
+        </div>
+        <ul class="leaderboard-list">
+            <li class="leaderboard-item animation">
+                <div class="rank top-1">1</div>
+                <div class="profile">
+                    <img src="{% static 'app/images/investor-image.png'%}" alt="Investor 1">
+                    <div>
+                        <h3>Zinzu Chan Lee</h3>
+                        <p>Seoul</p>
+                    </div>
+                  
+                </div>
+                <div class="buttons">
+                    <button class="accept" onclick="window.location.href='{% url 'endgame'  %}';">Accept</button>
+
+                    <button><a href="{% url 'leaderboard'%}">Reject</a></button>
+                </div>
+            </li>
+            <li class="leaderboard-item">
+                <div class="rank top-2">2</div>
+                <div class="profile">
+                    <img src="{% static 'app/images/investor-image.png'%}" alt="Investor 2">
+                    <div>
+                        <h3>Jeet Saru</h3>
+                        <p>Paris</p>
+                    </div>
+               
+                </div>
+                <div class="buttons">
+                    <button class="accept" onclick="window.location.href='{% url 'endgame'  %}';">Accept</button> 
+                    <button><a href="{% url 'leaderboard'%}">Reject</a></button>
+                </div>
+                
+            </li>
+            <li class="leaderboard-item">
+                <div class="rank top-3">3</div>
+                <div class="profile">
+                    <img src="{% static 'app/images/investor-image.png'%}" alt="Investor 3">
+                    <div>
+                        <h3>Sonal Gharti</h3>
+                        <p>Tokyo</p>
+                    </div>
+                  
+                </div>
+                <div class="buttons">
+                    <button class="accept" onclick="window.location.href='{% url 'endgame'  %}';">Accept</button>
+                                        <button><a href="{% url 'leaderboard'%}">Reject</a></button>
+                </div>
+            </li>
+            <li class="leaderboard-item">
+                <div class="rank">4</div>
+                <div class="profile">
+                    <img src="{% static 'app/images/investor-image.png'%}" alt="Investor 4">
+                    <div>
+                        <h3>Alson GC</h3>
+                        <p>New Delhi</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="accept" onclick="window.location.href='{% url 'endgame'  %}';">Accept</button>
+                    <button><a href="{% url 'leaderboard'%}">Reject</a></button>
+                </div>
+            </li>
+            <li class="leaderboard-item">
+                <div class="rank">5</div>
+                <div class="profile">
+                    <img src="{% static 'app/images/investor-image.png'%}" alt="Investor 5">
+                    <div>
+                        <h3>Maria Ortega</h3>
+                        <p>Madrid</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="accept" onclick="window.location.href='{% url 'endgame'  %}';">Accept</button>
+                    <button><a href="{% url 'leaderboard'%}">Reject</a></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+   
+    
+    <script>
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            const rejectButtons = document.querySelectorAll('.buttons button:nth-child(2)'); // Select the reject button
+    
+            rejectButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent link navigation
+                    const buttonsContainer = button.parentElement; // Get the buttons' container
+                    buttonsContainer.innerHTML = '<span style="font-size: 2rem; color: red;">&times;</span>'; // Replace with "X" mark
+                });
+            });
+        });
+    
+    
+        </script>
+</body>
+</html>

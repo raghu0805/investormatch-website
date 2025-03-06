@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+            overflow: hidden;
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
+            background: linear-gradient(to bottom, #000000, #434343);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  height: 100vh;
+        }
+
+        .contents {
+            font-size: 1em; /* Set font size relative to the viewport width */
+            color: white;
+            text-align: center;
+            
+        }
+        .card {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            width: 100%;
+            max-width: 900px;
+            position:relative;
+            left:0%;
+            animation: bounceSurprise 1.8s ease-out forwards;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+        }
+        
+        @keyframes bounceSurprise {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.7);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(10px) scale(1.1);
+            }
+            80% {
+                transform: translateY(-5px) scale(1.05);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="contents">
+            The <span id="startup-name"></span>'s startup will reach out to you via your registered email. Stay confident and motivated! Appointment details will be shared directly in your inbox.
+        </div>
+    
+        <script>
+
+            const investorName = localStorage.getItem("selectedStartup");
+        
+            if (investorName) {
+                document.getElementById("startup-name").innerText = investorName;
+            } else {
+                document.getElementById("startup-name").innerText = "No investor selected.";
+            }
+            setTimeout(() => {
+            window.location.href = "{% url 'index' %}";
+        }, 11000);
+        </script>
+</body>
+</html>
